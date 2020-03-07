@@ -44,9 +44,9 @@ class BaseGoogleScrapper:
                     domain_position = idx
         return {'results': results, 'domain_position': domain_position}
 
-    def run(self, filename, no_of_keywords):
+    def run(self, filename, *args, **kwargs):
         """Get google search results in a Dict."""
-        keywords = self._get_keywords(filename, no_of_keywords)
+        keywords = self._get_keywords(filename, *args, **kwargs)
         results = {}
         for keyword in keywords:
             content = self.get_google_results(keyword)
@@ -57,7 +57,7 @@ class BaseGoogleScrapper:
         """Get the domain name."""
         return urllib.parse.urlparse(link).netloc
 
-    def _get_keywords(self, filename, no_of_keywords):
+    def _get_keywords(self, filename, *args, **kwargs):
         """Get keywords from the text file."""
         text_file = open(filename, 'r')
         return [line.strip() for line in text_file.readlines()]
